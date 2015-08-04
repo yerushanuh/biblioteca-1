@@ -10,10 +10,11 @@ public class BibliotecaApp {
 
     public BibliotecaApp(PrintStream printStream){
         this.printStream = printStream;
-        this.bookList = new ArrayList<String>();
-        this.bookList.add("Book 1");
-        this.bookList.add("Book 2");
+        this.bookList = new ArrayList<Book>();
+        this.bookList.add(new Book("Title 1", "Author 1", 1));
+        this.bookList.add(new Book("Title 2", "Author 2", 2));
     }
+
     public void start() {
         printStream.println("Welcome to the Biblioteca Library!");
     }
