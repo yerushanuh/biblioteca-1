@@ -1,5 +1,7 @@
 package com.thoughtworks.biblioteca;
 
+import com.javafx.tools.doclets.formats.html.SourceToHTMLConverter;
+
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +22,20 @@ public class BibliotecaApp {
     }
 
     public void listBooks() {
-        for (String book : bookList){
-            printStream.println(book);
+        String output = "";
+        for (Book book : bookList){
+            output += book.getTitle() + "\n";
         }
+
+        printStream.print(output);
+    }
+
+    public void printBookDetails() {
+        String output = "";
+        for (Book book : bookList){
+            output += book.getTitle() + book.getAuthor() + book.getYear() + "\n";
+        }
+
+        printStream.print(output);
     }
 }

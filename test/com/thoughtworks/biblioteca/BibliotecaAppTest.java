@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
+import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -23,13 +24,27 @@ public class BibliotecaAppTest {
     @Test
     public void shouldPrintWelcomeMessageWhenStarting(){
         bibliotecaApp.start();
-        verify(printStream).println("Welcome to the Biblioteca Library!");
+        verify(printStream).println(contains("Welcome"));
     }
 
     @Test
     public void shouldListExistingBooksInLibrary(){
         bibliotecaApp.listBooks();
-        verify(printStream).println("Book 1");
-        verify(printStream).println("Book 2");
+        verify(printStream).print(contains("Title 1"));
+        verify(printStream).print(contains("Title 2"));
+    }
+
+    @Test
+    public void shouldListNothingWhenNoBooksInLibrary(){
+        bibliotecaApp.listBooks();
+        verify(printStream).print(contains(""));
+    }
+
+    @Test
+    public void shouldListExistingBookDetails() {
+        bibliotecaApp.printBookDetails();
+        verify(printStream).print(contains("Title 1"));
+        verify(printStream).print(contains("Author 1"));
+        verify(printStream).print(contains("1"));
     }
 }
