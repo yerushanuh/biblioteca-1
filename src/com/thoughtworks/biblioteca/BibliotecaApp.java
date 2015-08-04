@@ -33,7 +33,7 @@ public class BibliotecaApp {
     public void printBookDetails() {
         String output = "";
         for (Book book : bookList){
-            output += book.getTitle() + book.getAuthor() + book.getYear() + "\n";
+            output += book.getDetailsAsString() + "\n";
         }
 
         printStream.print(output);

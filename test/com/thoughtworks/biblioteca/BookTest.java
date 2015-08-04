@@ -29,4 +29,9 @@ public class BookTest {
     public void shouldReturnYear() {
         assertEquals(1, book.getYear());
     }
+
+    @Test
+    public void shouldConvertDetailsToString() {
+        assertEquals("Title 1, Author 1, 1", book.getDetailsAsString());
+    }
 }

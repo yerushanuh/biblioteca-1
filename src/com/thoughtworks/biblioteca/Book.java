@@ -23,4 +23,8 @@ public class Book {
     public int getYear() {
         return this.year;
     }
+
+    public String getDetailsAsString() {
+        return this.title + ", " + this.author + ", " + this.year;
+    }
 }
