@@ -68,4 +68,13 @@ public class BibliotecaAppTest {
         verify(harryPotter).getDetailsAsString();
     }
 
+    @Test
+    public void shouldReportErrorMessageWhenInvalidOptionIsSelected() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("invalid");
+        bookList.add(harryPotter);
+        bibliotecaApp.start();
+        verify(printStream).println(contains("Please enter a valid integer."));
+    }
+
+
 }
