@@ -9,14 +9,17 @@ import java.util.List;
 public class BibliotecaApp {
     private final PrintStream printStream;
     private List<Book> bookList;
+    private final Menu menu;
 
     public BibliotecaApp(PrintStream printStream, List<Book> listOfBooks){
         bookList = listOfBooks;
         this.printStream = printStream;
+        menu = new Menu();
     }
 
     public void start() {
         printStream.println("Welcome to the Biblioteca Library!");
+        menu.showOptions();
     }
 
     public void listBooks() {
@@ -28,5 +31,12 @@ public class BibliotecaApp {
         printStream.print(output);
     }
 
+    private class Menu{
+
+        public void showOptions() {
+            printStream.println("Menu");
+            printStream.println("Enter [1] to show all books");
+        }
+    }
 
 }

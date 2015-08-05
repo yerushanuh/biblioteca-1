@@ -50,11 +50,9 @@ public class BibliotecaAppTest {
         verify(printStream).print(contains(""));
     }
 
-
-
-//    @Test
-//    public void shouldShowMainMenuWhenStarting() {
-//        bibliotecaApp.start();
-//        //verify(printStream).println(contains("Menu"));
-//    }
+    @Test
+    public void shouldShowMenuOptionsWhenMenuIsDisplayed(){
+        bibliotecaApp.start();
+        verify(printStream).println(contains("Enter [1]"));
+    }
 }
