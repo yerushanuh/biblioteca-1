@@ -61,7 +61,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldShowListWhenUserInputsOne() throws IOException {
+    public void shouldGetBookDetailsWhenUserInputsOne() throws IOException {
         when(bufferedReader.readLine()).thenReturn("1");
         bookList.add(harryPotter);
         bibliotecaApp.start();
@@ -69,12 +69,19 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldReportErrorMessageWhenInvalidOptionIsSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("invalid");
+    public void shouldReportErrorMessageWhenInputIsNotInteger() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("not an integer");
         bookList.add(harryPotter);
         bibliotecaApp.start();
         verify(printStream).println(contains("Please enter a valid integer."));
     }
 
+    @Test
+    public void shouldReportErrorWhenInvalidOptionSelected() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("-1");
+        bookList.add(harryPotter);
+        bibliotecaApp.start();
+        verify(printStream).println(contains("Select a valid option!"));
+    }
 
 }
