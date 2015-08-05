@@ -10,11 +10,9 @@ public class BibliotecaApp {
     private final PrintStream printStream;
     private List<Book> bookList;
 
-    public BibliotecaApp(PrintStream printStream){
+    public BibliotecaApp(PrintStream printStream, List<Book> listOfBooks){
+        bookList = listOfBooks;
         this.printStream = printStream;
-        this.bookList = new ArrayList<Book>();
-        this.bookList.add(new Book("Title 1", "Author 1", 1));
-        this.bookList.add(new Book("Title 2", "Author 2", 2));
     }
 
     public void start() {
@@ -24,18 +22,11 @@ public class BibliotecaApp {
     public void listBooks() {
         String output = "";
         for (Book book : bookList){
-            output += book.getTitle() + "\n";
-        }
-
-        printStream.print(output);
-    }
-
-    public void printBookDetails() {
-        String output = "";
-        for (Book book : bookList){
             output += book.getDetailsAsString() + "\n";
         }
 
         printStream.print(output);
     }
+
+
 }

@@ -1,24 +1,33 @@
 package com.thoughtworks.biblioteca;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 public class BibliotecaAppTest {
 
     private PrintStream printStream;
     private BibliotecaApp bibliotecaApp;
+    private List<Book> bookList;
+    private Book harryPotter;
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
-        bibliotecaApp = new BibliotecaApp(printStream);
+        bookList = new ArrayList<>();
+        bibliotecaApp = new BibliotecaApp(printStream, bookList);
+        harryPotter = mock(Book.class);
+
     }
 
     @Test
@@ -29,9 +38,10 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldListExistingBooksInLibrary(){
+        bookList.add(harryPotter);
+        when(harryPotter.getDetailsAsString()).thenReturn("some string");
         bibliotecaApp.listBooks();
-        verify(printStream).print(contains("Title 1"));
-        verify(printStream).print(contains("Title 2"));
+        verify(printStream).print(contains("some string"));
     }
 
     @Test
@@ -40,11 +50,11 @@ public class BibliotecaAppTest {
         verify(printStream).print(contains(""));
     }
 
-    @Test
-    public void shouldListExistingBookDetails() {
-        bibliotecaApp.printBookDetails();
-        verify(printStream).print(contains("Title 1"));
-        verify(printStream).print(contains("Author 1"));
-        verify(printStream).print(contains("1"));
-    }
+
+
+//    @Test
+//    public void shouldShowMainMenuWhenStarting() {
+//        bibliotecaApp.start();
+//        //verify(printStream).println(contains("Menu"));
+//    }
 }

@@ -12,19 +12,9 @@ public class Book {
         this.year = year;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
 
-    public String getAuthor() {
-        return this.author;
-    }
-
-    public int getYear() {
-        return this.year;
-    }
 
     public String getDetailsAsString() {
-        return this.title + ", " + this.author + ", " + this.year;
+        return this.title + " | " + this.author + " | " + this.year;
     }
 }
