@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +22,14 @@ public class BibliotecaAppTest {
     private BibliotecaApp bibliotecaApp;
     private List<Book> bookList;
     private Book harryPotter;
+    private BufferedReader bufferedReader;
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
         bookList = new ArrayList<>();
-        bibliotecaApp = new BibliotecaApp(printStream, bookList);
+        bufferedReader = mock(BufferedReader.class);
+        bibliotecaApp = new BibliotecaApp(printStream, bufferedReader, bookList);
         harryPotter = mock(Book.class);
 
     }
@@ -55,4 +59,13 @@ public class BibliotecaAppTest {
         bibliotecaApp.start();
         verify(printStream).println(contains("Enter [1]"));
     }
+
+    @Test
+    public void shouldShowListWhenUserInputsOne() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("1");
+        bookList.add(harryPotter);
+        bibliotecaApp.start();
+        verify(harryPotter).getDetailsAsString();
+    }
+
 }
