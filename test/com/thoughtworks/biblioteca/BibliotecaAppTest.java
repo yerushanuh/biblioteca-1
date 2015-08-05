@@ -70,15 +70,15 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldReportErrorMessageWhenInputIsNotInteger() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("not an integer");
+        when(bufferedReader.readLine()).thenReturn("not an integer").thenReturn("1");
         bookList.add(harryPotter);
         bibliotecaApp.start();
-        verify(printStream).println(contains("Please enter a valid integer."));
+        verify(printStream).println(contains("Select a valid option!"));
     }
 
     @Test
     public void shouldReportErrorWhenInvalidOptionSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("-1");
+        when(bufferedReader.readLine()).thenReturn("-1").thenReturn("1");
         bookList.add(harryPotter);
         bibliotecaApp.start();
         verify(printStream).println(contains("Select a valid option!"));
