@@ -15,6 +15,6 @@ public class Book {
 
 
     public String getDetailsAsString() {
-        return this.title + " | " + this.author + " | " + this.year;
+        return String.format("%-30.30s | %-30.30s | %d", title, author, year);
     }
 }

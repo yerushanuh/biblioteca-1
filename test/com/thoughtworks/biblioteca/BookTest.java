@@ -15,6 +15,6 @@ public class BookTest {
 
     @Test
     public void shouldConvertDetailsToString() {
-        assertEquals("Title 1 | Author 1 | 1", book.getDetailsAsString());
+        assertEquals(String.format("%-30.30s | %-30.30s | %d", "Title 1", "Author 1", 1), book.getDetailsAsString());
     }
 }
