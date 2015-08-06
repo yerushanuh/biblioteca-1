@@ -44,27 +44,35 @@ public class MenuTest {
     public void shouldShowMenuOptionsWhenMenuIsDisplayed() {
         menu.showOptions();
         verify(printStream).println(contains("Enter [1]"));
+        verify(printStream).println(contains("Quit [0]"));
     }
 
     @Test
     public void shouldListBooksWhenMenuOptionOneIsSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("1", "0");
         menu.respondToUserInput();
         verify(bibliotecaApp).listBooks();
     }
 
     @Test
     public void shouldReportErrorWhenInvalidIntegerSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("-1", "1");
+        when(bufferedReader.readLine()).thenReturn("-1", "1", "0");
         menu.respondToUserInput();
         verify(printStream).println("Select a valid option!");
     }
 
     @Test
     public void shouldReportErrorMessageWhenInputIsNotInteger() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("not an integer", "1");
+        when(bufferedReader.readLine()).thenReturn("not an integer", "1", "0");
         menu.respondToUserInput();
         verify(printStream).println(contains("Select a valid option!"));
+    }
+
+    @Test
+    public void shouldBePromptedOnceWhenQuitIsFirstChoice() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("0", "1");
+        menu.respondToUserInput();
+        verify(bufferedReader).readLine();
     }
 
 

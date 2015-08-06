@@ -21,6 +21,7 @@ public class Menu {
     public void showOptions() {
         printStream.println("Menu");
         printStream.println("Enter [1] to show all books");
+        printStream.println("Quit [0] to close the library");
     }
 
     public void respondToUserInput() {
@@ -32,9 +33,11 @@ public class Menu {
 
     private void applySelectedMenuOption(Integer input) {
         switch (input) {
+            case 0:
+                readyToReadInput = false;
+                break;
             case 1:
                 bibliotecaApp.listBooks();
-                readyToReadInput = false;
                 break;
             default:
                 printStream.println("Select a valid option!");
