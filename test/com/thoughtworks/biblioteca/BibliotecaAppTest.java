@@ -35,7 +35,8 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldPrintWelcomeMessageWhenStarting(){
+    public void shouldPrintWelcomeMessageWhenStarting() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("1");
         bibliotecaApp.start();
         verify(printStream).println(contains("Welcome"));
     }
@@ -54,34 +55,6 @@ public class BibliotecaAppTest {
         verify(printStream).print(contains(""));
     }
 
-    @Test
-    public void shouldShowMenuOptionsWhenMenuIsDisplayed(){
-        bibliotecaApp.start();
-        verify(printStream).println(contains("Enter [1]"));
-    }
 
-    @Test
-    public void shouldGetBookDetailsWhenUserInputsOne() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1");
-        bookList.add(harryPotter);
-        bibliotecaApp.start();
-        verify(harryPotter).getDetailsAsString();
-    }
-
-    @Test
-    public void shouldReportErrorMessageWhenInputIsNotInteger() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("not an integer").thenReturn("1");
-        bookList.add(harryPotter);
-        bibliotecaApp.start();
-        verify(printStream).println(contains("Select a valid option!"));
-    }
-
-    @Test
-    public void shouldReportErrorWhenInvalidOptionSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("-1").thenReturn("1");
-        bookList.add(harryPotter);
-        bibliotecaApp.start();
-        verify(printStream).println(contains("Select a valid option!"));
-    }
 
 }

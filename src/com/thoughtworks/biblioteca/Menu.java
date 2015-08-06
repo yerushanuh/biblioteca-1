@@ -9,13 +9,13 @@ public class Menu {
     private PrintStream printStream;
     private BufferedReader bufferedReader;
     private BibliotecaApp bibliotecaApp;
-    private Boolean userInputValid;
+    private Boolean readyToReadInput;
 
     public Menu(PrintStream printStream, BufferedReader bufferedReader, BibliotecaApp bibliotecaApp) {
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
         this.bibliotecaApp = bibliotecaApp;
-        this.userInputValid = true;
+        this.readyToReadInput = true;
     }
 
     public void showOptions() {
@@ -25,7 +25,7 @@ public class Menu {
 
     public void respondToUserInput() {
 
-        while (userInputValid) {
+        while (readyToReadInput) {
             applySelectedMenuOption(readAndValidateUserInput());
         }
     }
@@ -34,7 +34,7 @@ public class Menu {
         switch (input) {
             case 1:
                 bibliotecaApp.listBooks();
-                userInputValid = false;
+                readyToReadInput = false;
                 break;
             default:
                 printStream.println("Select a valid option!");
