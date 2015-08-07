@@ -7,13 +7,13 @@ public class Menu {
 
     private PrintStream printStream;
     private BufferedReader bufferedReader;
-    private BibliotecaApp bibliotecaApp;
+    private LibraryApp libraryApp;
     private Boolean readyToReadInput;
 
-    public Menu(PrintStream printStream, BufferedReader bufferedReader, BibliotecaApp bibliotecaApp) {
+    public Menu(PrintStream printStream, BufferedReader bufferedReader, LibraryApp libraryApp) {
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
-        this.bibliotecaApp = bibliotecaApp;
+        this.libraryApp = libraryApp;
         this.readyToReadInput = true;
     }
 
@@ -37,7 +37,7 @@ public class Menu {
                 readyToReadInput = false;
                 break;
             case 1:
-                bibliotecaApp.listBooks();
+                libraryApp.listBooks();
                 break;
             case 2:
                 checkOutBook();

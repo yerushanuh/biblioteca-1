@@ -1,21 +1,14 @@
 package com.thoughtworks.biblioteca;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by lfitzger on 8/6/15.
@@ -24,7 +17,7 @@ public class MenuTest {
 
     //private static final Book DEFAULT_BOOK = mock(Book.class);
     private BufferedReader bufferedReader;
-    private  BibliotecaApp bibliotecaApp;
+    private LibraryApp libraryApp;
     private PrintStream printStream;
     //private List<Book> bookList;
     //private Book harryPotter;
@@ -34,10 +27,10 @@ public class MenuTest {
     public void setUp() throws Exception {
         bufferedReader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
-        bibliotecaApp = mock(BibliotecaApp.class);
+        libraryApp = mock(LibraryApp.class);
         //bookList = new ArrayList<Book>();
         //harryPotter = mock(Book.class);
-        menu = new Menu(printStream, bufferedReader, bibliotecaApp);
+        menu = new Menu(printStream, bufferedReader, libraryApp);
     }
 
     @Test
@@ -52,7 +45,7 @@ public class MenuTest {
     public void shouldListBooksWhenMenuOptionOneIsSelected() throws IOException {
         when(bufferedReader.readLine()).thenReturn("1", "0");
         menu.respondToUserInput();
-        verify(bibliotecaApp).listBooks();
+        verify(libraryApp).listBooks();
     }
 
     @Test
@@ -77,9 +70,16 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldCheckOutBooksWhenOption2IsSelected() throws IOException {
+    public void shouldPromptUserForBookTitleWhenOption2IsSelected() throws IOException {
         when(bufferedReader.readLine()).thenReturn("2", "0");
         menu.respondToUserInput();
         verify(printStream).println(contains("Enter the title of the book you would like to check out."));
+    }
+
+    @Test
+    public void shouldRemoveSelectedBookFromLibraryWhenUserSpecifiesBookToCheckOut() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("1", "2", "Harry Potter", "1", "0");
+        menu.respondToUserInput();
+        verify(printStream).println(contains("Harry Potter"));
     }
 }

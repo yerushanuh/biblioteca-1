@@ -13,10 +13,10 @@ import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
 
 
-public class BibliotecaAppTest {
+public class LibraryAppTest {
 
     private PrintStream printStream;
-    private BibliotecaApp bibliotecaApp;
+    private LibraryApp libraryApp;
     private List<Book> bookList;
     private Book harryPotter;
     private BufferedReader bufferedReader;
@@ -26,7 +26,7 @@ public class BibliotecaAppTest {
         printStream = mock(PrintStream.class);
         bookList = new ArrayList<>();
         bufferedReader = mock(BufferedReader.class);
-        bibliotecaApp = new BibliotecaApp(printStream, bufferedReader, bookList);
+        libraryApp = new LibraryApp(printStream, bufferedReader, bookList);
         harryPotter = mock(Book.class);
 
     }
@@ -34,7 +34,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldPrintWelcomeMessageWhenStarting() throws IOException {
         when(bufferedReader.readLine()).thenReturn("1", "0");
-        bibliotecaApp.start();
+        libraryApp.start();
         verify(printStream).println(contains("Welcome"));
     }
 
@@ -43,13 +43,13 @@ public class BibliotecaAppTest {
         bookList.add(harryPotter);
         when(harryPotter.getDetailsAsString()).thenReturn("some string");
         when(harryPotter.isAvailable()).thenReturn(true);
-        bibliotecaApp.listBooks();
+        libraryApp.listBooks();
         verify(printStream).print(contains("some string"));
     }
 
     @Test
     public void shouldListNothingWhenNoBooksInLibrary(){
-        bibliotecaApp.listBooks();
+        libraryApp.listBooks();
         verify(printStream).print(contains(""));
     }
 
@@ -58,7 +58,7 @@ public class BibliotecaAppTest {
         bookList.add(harryPotter);
         when(harryPotter.isAvailable()).thenReturn(false);
         when(harryPotter.getDetailsAsString()).thenReturn("some string");
-        bibliotecaApp.listBooks();
+        libraryApp.listBooks();
         verify(printStream, times(0)).print(contains("some string"));
     }
 }
