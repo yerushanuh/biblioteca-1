@@ -37,9 +37,11 @@ public class LibraryApp {
             if (book.hasTitle(bookTitle) && book.isAvailable()) {
                 book.checkOut();
                 printStream.println("Thank you! Enjoy the book");
+                break;
             }
             else {
                 printStream.println("That book is not available.");
+                break;
             }
         }
     }
