@@ -17,4 +17,12 @@ public class BookTest {
     public void shouldConvertDetailsToString() {
         assertEquals(String.format("%-30.30s | %-30.30s | %d", "Title 1", "Author 1", 1), book.getDetailsAsString());
     }
+
+    @Test
+    public void shouldBecomeUnavailableWhenCheckedOut() {
+        book.checkOut();
+        assertEquals(book.isAvailable(), false);
+    }
+
+
 }

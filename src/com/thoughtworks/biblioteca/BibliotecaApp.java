@@ -24,7 +24,9 @@ public class BibliotecaApp {
     public void listBooks() {
         String output = "";
         for (Book book : bookList){
-            output += book.getDetailsAsString() + "\n";
+            if (book.isAvailable()) {
+                output += book.getDetailsAsString() + "\n";
+            }
         }
 
         printStream.print(output);

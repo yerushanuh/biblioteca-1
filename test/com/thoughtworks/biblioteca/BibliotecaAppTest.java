@@ -1,7 +1,6 @@
 package com.thoughtworks.biblioteca;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -11,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class BibliotecaAppTest {
@@ -54,6 +51,16 @@ public class BibliotecaAppTest {
         bibliotecaApp.listBooks();
         verify(printStream).print(contains(""));
     }
+
+    @Test
+    public void shouldNotPrintOutWhenBookIsCheckedOut() {
+        bookList.add(harryPotter);
+        when(harryPotter.isAvailable()).thenReturn(false);
+        when(harryPotter.getDetailsAsString()).thenReturn("some string");
+        bibliotecaApp.listBooks();
+        verify(printStream, times(0)).print(contains("some string"));
+    }
+
 
 
 
