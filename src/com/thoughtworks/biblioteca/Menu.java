@@ -1,6 +1,7 @@
 package com.thoughtworks.biblioteca;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 
 public class Menu {
@@ -57,9 +58,14 @@ public class Menu {
         return input;
     }
 
-
-
     public void checkOutBook() {
         printStream.println("Enter the title of the book you would like to check out.");
+        String bookTitle = null;
+        try {
+            bookTitle = bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        libraryApp.checkOut(bookTitle);
     }
 }

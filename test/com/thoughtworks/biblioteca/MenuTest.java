@@ -20,7 +20,7 @@ public class MenuTest {
     private LibraryApp libraryApp;
     private PrintStream printStream;
     //private List<Book> bookList;
-    //private Book harryPotter;
+    private Book harryPotter;
     private Menu menu;
 
     @Before
@@ -29,7 +29,7 @@ public class MenuTest {
         printStream = mock(PrintStream.class);
         libraryApp = mock(LibraryApp.class);
         //bookList = new ArrayList<Book>();
-        //harryPotter = mock(Book.class);
+        harryPotter = mock(Book.class);
         menu = new Menu(printStream, bufferedReader, libraryApp);
     }
 
@@ -76,10 +76,10 @@ public class MenuTest {
         verify(printStream).println(contains("Enter the title of the book you would like to check out."));
     }
 
-    @Test
-    public void shouldRemoveSelectedBookFromLibraryWhenUserSpecifiesBookToCheckOut() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1", "2", "Harry Potter", "1", "0");
-        menu.respondToUserInput();
-        verify(printStream).println(contains("Harry Potter"));
-    }
+   @Test
+    public void shouldInstructLibraryToCheckOutBookWhenBookSpecified() throws IOException {
+       when(bufferedReader.readLine()).thenReturn("Harry Potter");
+       menu.checkOutBook();
+       verify(libraryApp).checkOut("Harry Potter");
+   }
 }

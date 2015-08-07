@@ -32,4 +32,6 @@ public class LibraryApp {
         printStream.print(output);
     }
 
+    public void checkOut(String book) {
+    }
 }
