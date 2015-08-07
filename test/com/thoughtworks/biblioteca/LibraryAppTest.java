@@ -69,4 +69,12 @@ public class LibraryAppTest {
         libraryApp.checkOut("Harry Potter");
         verify(harryPotter).checkOut();
     }
+
+    @Test
+    public void shouldPrintSuccessMessageWhenBookIsSuccessfullyCheckedOut() {
+        bookList.add(harryPotter);
+        when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
+        libraryApp.checkOut("Harry Potter");
+        verify(printStream).println(contains("Thank you! Enjoy the book"));
+    }
 }

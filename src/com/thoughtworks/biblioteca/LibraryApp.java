@@ -36,6 +36,7 @@ public class LibraryApp {
         for (Book book: bookList) {
             if (book.hasTitle(bookTitle)) {
                 book.checkOut();
+                printStream.println("Thank you! Enjoy the book");
             }
         }
     }
