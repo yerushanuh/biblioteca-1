@@ -32,6 +32,11 @@ public class LibraryApp {
         printStream.print(output);
     }
 
-    public void checkOut(String book) {
+    public void checkOut(String bookTitle) {
+        for (Book book: bookList) {
+            if (book.hasTitle(bookTitle)) {
+                book.checkOut();
+            }
+        }
     }
 }

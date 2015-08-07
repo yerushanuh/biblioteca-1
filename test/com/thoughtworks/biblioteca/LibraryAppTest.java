@@ -61,4 +61,12 @@ public class LibraryAppTest {
         libraryApp.listBooks();
         verify(printStream, times(0)).print(contains("some string"));
     }
+
+    @Test
+    public void shouldCheckOutBookWhenTitleIsGiven() {
+        bookList.add(harryPotter);
+        when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
+        libraryApp.checkOut("Harry Potter");
+        verify(harryPotter).checkOut();
+    }
 }

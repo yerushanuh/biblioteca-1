@@ -25,4 +25,8 @@ public class Book {
     public boolean isAvailable() {
         return availability;
     }
+
+    public boolean hasTitle(String title) {
+        return this.title.equals(title);
+    }
 }
