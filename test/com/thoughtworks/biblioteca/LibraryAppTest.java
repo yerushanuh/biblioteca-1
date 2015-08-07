@@ -65,6 +65,7 @@ public class LibraryAppTest {
     @Test
     public void shouldCheckOutBookWhenTitleIsGiven() {
         bookList.add(harryPotter);
+        when(harryPotter.isAvailable()).thenReturn(true);
         when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
         libraryApp.checkOut("Harry Potter");
         verify(harryPotter).checkOut();
@@ -73,8 +74,18 @@ public class LibraryAppTest {
     @Test
     public void shouldPrintSuccessMessageWhenBookIsSuccessfullyCheckedOut() {
         bookList.add(harryPotter);
+        when(harryPotter.isAvailable()).thenReturn(true);
         when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
         libraryApp.checkOut("Harry Potter");
         verify(printStream).println(contains("Thank you! Enjoy the book"));
+    }
+
+    @Test
+    public void shouldPrintFailureMessageWhenBookIsNotAvailableInLibrary() {
+        bookList.add(harryPotter);
+        when(harryPotter.isAvailable()).thenReturn(false);
+        when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
+        libraryApp.checkOut("Harry Potter");
+        verify(printStream).println(contains("That book is not available."));
     }
 }

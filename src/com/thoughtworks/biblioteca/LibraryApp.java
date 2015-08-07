@@ -34,9 +34,12 @@ public class LibraryApp {
 
     public void checkOut(String bookTitle) {
         for (Book book: bookList) {
-            if (book.hasTitle(bookTitle)) {
+            if (book.hasTitle(bookTitle) && book.isAvailable()) {
                 book.checkOut();
                 printStream.println("Thank you! Enjoy the book");
+            }
+            else {
+                printStream.println("That book is not available.");
             }
         }
     }
