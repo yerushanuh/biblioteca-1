@@ -1,6 +1,7 @@
 package com.thoughtworks.biblioteca;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ public class MenuTest {
     private BufferedReader bufferedReader;
     private LibraryApp libraryApp;
     private PrintStream printStream;
+    private MenuCommand menuCommands;
     //private List<Book> bookList;
     private Book harryPotter;
     private Menu menu;
@@ -29,6 +31,7 @@ public class MenuTest {
         printStream = mock(PrintStream.class);
         libraryApp = mock(LibraryApp.class);
         //bookList = new ArrayList<Book>();
+        menuCommands = mock(MenuCommand.class);
         harryPotter = mock(Book.class);
         menu = new Menu(printStream, bufferedReader, libraryApp);
     }
@@ -38,6 +41,7 @@ public class MenuTest {
         menu.showOptions();
         verify(printStream).println(contains("Enter [1]"));
         verify(printStream).println(contains("Enter [2]"));
+        verify(printStream).println(contains("Enter [3]"));
         verify(printStream).println(contains("Quit [0]"));
     }
 
@@ -69,17 +73,11 @@ public class MenuTest {
         verify(bufferedReader).readLine();
     }
 
-    @Test
+    @Ignore
     public void shouldPromptUserForBookTitleWhenOption2IsSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("2", "0");
+        when(bufferedReader.readLine()).thenReturn("2", "0", "0");
         menu.respondToUserInput();
-        verify(printStream).println(contains("Enter the title of the book you would like to check out."));
+        verify(menuCommands).checkOutBook();
     }
 
-   @Test
-    public void shouldInstructLibraryToCheckOutBookWhenBookSpecified() throws IOException {
-       when(bufferedReader.readLine()).thenReturn("Harry Potter");
-       menu.checkOutBook();
-       verify(libraryApp).checkOut("Harry Potter");
-   }
 }

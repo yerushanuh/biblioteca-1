@@ -10,6 +10,7 @@ public class Menu {
     private BufferedReader bufferedReader;
     private LibraryApp libraryApp;
     private Boolean readyToReadInput;
+    private MenuCommand menuCommands;
 
     public Menu(PrintStream printStream, BufferedReader bufferedReader, LibraryApp libraryApp) {
         this.printStream = printStream;
@@ -22,6 +23,7 @@ public class Menu {
         printStream.println("Menu");
         printStream.println("Enter [1] to show all books");
         printStream.println("Enter [2] to checkout books");
+        printStream.println("Enter [3] to return books");
         printStream.println("Quit [0] to close the library");
     }
 
@@ -41,7 +43,7 @@ public class Menu {
                 libraryApp.listBooks();
                 break;
             case 2:
-                checkOutBook();
+                menuCommands.checkOutBook();
                 break;
             default:
                 printStream.println("Select a valid option!");
@@ -58,14 +60,5 @@ public class Menu {
         return input;
     }
 
-    public void checkOutBook() {
-        printStream.println("Enter the title of the book you would like to check out.");
-        String bookTitle = null;
-        try {
-            bookTitle = bufferedReader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        libraryApp.checkOut(bookTitle);
-    }
+
 }
