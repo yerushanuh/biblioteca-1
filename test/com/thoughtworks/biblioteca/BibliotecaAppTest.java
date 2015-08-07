@@ -33,7 +33,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldPrintWelcomeMessageWhenStarting() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("1", "0");
         bibliotecaApp.start();
         verify(printStream).println(contains("Welcome"));
     }
@@ -42,6 +42,7 @@ public class BibliotecaAppTest {
     public void shouldListExistingBooksInLibrary(){
         bookList.add(harryPotter);
         when(harryPotter.getDetailsAsString()).thenReturn("some string");
+        when(harryPotter.isAvailable()).thenReturn(true);
         bibliotecaApp.listBooks();
         verify(printStream).print(contains("some string"));
     }
@@ -53,15 +54,11 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldNotPrintOutWhenBookIsCheckedOut() {
+    public void shouldNotIncludeBookInBookListWhenBookIsCheckedOut() {
         bookList.add(harryPotter);
         when(harryPotter.isAvailable()).thenReturn(false);
         when(harryPotter.getDetailsAsString()).thenReturn("some string");
         bibliotecaApp.listBooks();
         verify(printStream, times(0)).print(contains("some string"));
     }
-
-
-
-
 }

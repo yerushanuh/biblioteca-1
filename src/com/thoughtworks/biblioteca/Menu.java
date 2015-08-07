@@ -1,7 +1,6 @@
 package com.thoughtworks.biblioteca;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
 
 public class Menu {
@@ -21,13 +20,14 @@ public class Menu {
     public void showOptions() {
         printStream.println("Menu");
         printStream.println("Enter [1] to show all books");
+        printStream.println("Enter [2] to checkout books");
         printStream.println("Quit [0] to close the library");
     }
 
     public void respondToUserInput() {
 
         while (readyToReadInput) {
-            applySelectedMenuOption(readAndValidateUserInput());
+            applySelectedMenuOption(readAndValidateInputMenuOption());
         }
     }
 
@@ -39,18 +39,27 @@ public class Menu {
             case 1:
                 bibliotecaApp.listBooks();
                 break;
+            case 2:
+                checkOutBook();
+                break;
             default:
                 printStream.println("Select a valid option!");
         }
     }
 
-    private Integer readAndValidateUserInput() {
+    private Integer readAndValidateInputMenuOption() {
         Integer input = -1;
         try {
-            printStream.print("Menu selection: ");
+            printStream.println("Menu selection: ");
             input = Integer.parseInt(bufferedReader.readLine());
         } catch (Exception e) {}
 
         return input;
+    }
+
+
+
+    public void checkOutBook() {
+        printStream.println("Enter the title of the book you would like to check out.");
     }
 }

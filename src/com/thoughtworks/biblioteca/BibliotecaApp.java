@@ -32,6 +32,4 @@ public class BibliotecaApp {
         printStream.print(output);
     }
 
-
-
 }

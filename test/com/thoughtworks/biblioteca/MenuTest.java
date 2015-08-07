@@ -22,11 +22,12 @@ import static org.mockito.Mockito.when;
  */
 public class MenuTest {
 
+    //private static final Book DEFAULT_BOOK = mock(Book.class);
     private BufferedReader bufferedReader;
     private  BibliotecaApp bibliotecaApp;
     private PrintStream printStream;
-    private List<Book> bookList;
-    private Book harryPotter;
+    //private List<Book> bookList;
+    //private Book harryPotter;
     private Menu menu;
 
     @Before
@@ -34,16 +35,16 @@ public class MenuTest {
         bufferedReader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
         bibliotecaApp = mock(BibliotecaApp.class);
-        bookList = new ArrayList<Book>();
-        harryPotter = mock(Book.class);
+        //bookList = new ArrayList<Book>();
+        //harryPotter = mock(Book.class);
         menu = new Menu(printStream, bufferedReader, bibliotecaApp);
-
     }
 
     @Test
     public void shouldShowMenuOptionsWhenMenuIsDisplayed() {
         menu.showOptions();
         verify(printStream).println(contains("Enter [1]"));
+        verify(printStream).println(contains("Enter [2]"));
         verify(printStream).println(contains("Quit [0]"));
     }
 
@@ -75,5 +76,10 @@ public class MenuTest {
         verify(bufferedReader).readLine();
     }
 
-
+    @Test
+    public void shouldCheckOutBooksWhenOption2IsSelected() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("2", "0");
+        menu.respondToUserInput();
+        verify(printStream).println(contains("Enter the title of the book you would like to check out."));
+    }
 }
