@@ -9,6 +9,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
 
@@ -26,7 +28,7 @@ public class LibraryTest {
         printStream = mock(PrintStream.class);
         bookList = new ArrayList<>();
         bufferedReader = mock(BufferedReader.class);
-        library = new Library(printStream, bookList);
+        library = new Library(bookList);
         harryPotter = mock(Book.class);
 
     }
@@ -36,23 +38,21 @@ public class LibraryTest {
         bookList.add(harryPotter);
         when(harryPotter.getDetailsAsString()).thenReturn("some string");
         when(harryPotter.isAvailable()).thenReturn(true);
-        library.listBooks();
-        verify(printStream).print(contains("some string"));
+        assertEquals(library.listBooks(), ("some string\n"));
     }
 
     @Test
     public void shouldListNothingWhenNoBooksInLibrary(){
         library.listBooks();
-        verify(printStream).print(contains(""));
+        assertEquals(library.listBooks(), (""));
     }
 
     @Test
-    public void shouldNotIncludeBookInBookListWhenBookIsCheckedOut() {
+    public void shouldNotIncludeBookInBookListWhenBookIsNotAvailable() {
         bookList.add(harryPotter);
         when(harryPotter.isAvailable()).thenReturn(false);
         when(harryPotter.getDetailsAsString()).thenReturn("some string");
-        library.listBooks();
-        verify(printStream, times(0)).print(contains("some string"));
+        assertFalse(library.listBooks().equals("some string\n"));
     }
 
     @Test
@@ -69,8 +69,7 @@ public class LibraryTest {
         bookList.add(harryPotter);
         when(harryPotter.isAvailable()).thenReturn(true);
         when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
-        library.checkOut("Harry Potter");
-        verify(printStream).println(contains("Thank you! Enjoy the book"));
+        assertEquals(library.checkOut("Harry Potter"), "Thank you! Enjoy the book");
     }
 
     @Test
@@ -78,8 +77,7 @@ public class LibraryTest {
         bookList.add(harryPotter);
         when(harryPotter.isAvailable()).thenReturn(false);
         when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
-        library.checkOut("Harry Potter");
-        verify(printStream).println(contains("That book is not available."));
+        assertEquals(library.checkOut("Harry Potter"), "That book is not available.");
     }
 
     @Test
@@ -97,13 +95,13 @@ public class LibraryTest {
         when(harryPotter.isAvailable()).thenReturn(false);
         when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
         library.returnBook("Harry Potter");
-        verify(printStream).println(contains("Thank you for returning the book."));
+        assertEquals(library.returnBook("Harry Potter"), "Thank you for returning the book.");
     }
 
     @Test
     public void shouldPrintFailureMessageWhenBookIsNotSuccessfullyReturned() {
         library.returnBook("Harry Potter");
-        verify(printStream).println(contains("That is not a valid book to return."));
+        assertEquals(library.returnBook("Harry Potter"), "That is not a valid book to return.");
     }
 
 }

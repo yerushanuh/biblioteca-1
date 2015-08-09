@@ -22,13 +22,20 @@ public class MenuCommand {
     public void checkOutBook() {
         printStream.println("Enter the title of the book you would like to check out.");
         String bookTitle = getUserInput();
-        library.checkOut(bookTitle);
+        String output = library.checkOut(bookTitle);
+        printStream.println(output);
     }
 
     public void returnBook() {
         printStream.println("Enter the title of the book you would like to return.");
         String bookTitle = getUserInput();
-        library.returnBook(bookTitle);
+        String output = library.returnBook(bookTitle);
+        printStream.println(output);
+    }
+
+    public void listBooks() {
+        String output = library.listBooks();
+        printStream.println(output);
     }
 
     private String getUserInput() {
@@ -39,9 +46,5 @@ public class MenuCommand {
             e.printStackTrace();
         }
         return string;
-    }
-
-    public void listBooks() {
-        library.listBooks();
     }
 }

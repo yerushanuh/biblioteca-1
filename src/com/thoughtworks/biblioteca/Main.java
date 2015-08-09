@@ -19,7 +19,7 @@ public class Main {
 
         PrintStream printStream = new PrintStream(System.out);
 
-        Library library = new Library(printStream, listOfBooks);
+        Library library = new Library(listOfBooks);
 
         Biblioteca biblioteca = new Biblioteca(printStream, new BufferedReader(new InputStreamReader(System.in)), library);
         biblioteca.start();

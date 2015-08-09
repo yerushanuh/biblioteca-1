@@ -1,57 +1,55 @@
 package com.thoughtworks.biblioteca;
 
-import java.io.PrintStream;
 import java.util.List;
 
 public class Library {
-    private PrintStream printStream;
     private List<Book> bookList;
 
-    public Library(PrintStream printStream, List<Book> listOfBooks){
+    public Library(List<Book> listOfBooks) {
         this.bookList = listOfBooks;
-        this.printStream = printStream;
     }
 
-    public void listBooks() {
+    public String listBooks() {
         String output = "";
-        for (Book book : bookList){
+        for (Book book : bookList) {
             if (book.isAvailable()) {
                 output += book.getDetailsAsString() + "\n";
             }
         }
-
-        printStream.print(output);
+        return output;
     }
 
-    public void checkOut(String bookTitle) {
+    public String checkOut(String bookTitle) {
+        String output;
         boolean bookFound = false;
-        for (Book book: bookList) {
+        for (Book book : bookList) {
             if (!bookFound && book.hasTitle(bookTitle) && book.isAvailable()) {
                 book.checkOut();
                 bookFound = true;
             }
         }
-         if(bookFound) {
-             printStream.println("Thank you! Enjoy the book");
-         }
-         else {
-             printStream.println("That book is not available.");
-         }
+        if (bookFound) {
+            output = "Thank you! Enjoy the book";
+        } else {
+            output = "That book is not available.";
+        }
+        return output;
     }
 
-    public void returnBook(String bookTitle) {
+    public String returnBook(String bookTitle) {
+        String output;
         boolean bookFound = false;
-        for (Book book: bookList) {
+        for (Book book : bookList) {
             if (!bookFound && book.hasTitle(bookTitle) && !book.isAvailable()) {
                 book.returnBook();
                 bookFound = true;
             }
         }
-        if(bookFound) {
-            printStream.println("Thank you for returning the book.");
+        if (bookFound) {
+            output = "Thank you for returning the book.";
+        } else {
+            output = "That is not a valid book to return.";
         }
-        else {
-            printStream.println("That is not a valid book to return.");
-        }
+        return output;
     }
 }
