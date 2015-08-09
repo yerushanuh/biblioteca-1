@@ -90,4 +90,20 @@ public class LibraryTest {
         library.returnBook("Harry Potter");
         verify(harryPotter).returnBook();
     }
+
+    @Test
+    public void shouldPrintSuccessMessageWhenBookIsSuccessfullyReturned() {
+        bookList.add(harryPotter);
+        when(harryPotter.isAvailable()).thenReturn(false);
+        when(harryPotter.hasTitle("Harry Potter")).thenReturn(true);
+        library.returnBook("Harry Potter");
+        verify(printStream).println(contains("Thank you for returning the book."));
+    }
+
+    @Test
+    public void shouldPrintFailureMessageWhenBookIsNotSuccessfullyReturned() {
+        library.returnBook("Harry Potter");
+        verify(printStream).println(contains("That is not a valid book to return."));
+    }
+
 }

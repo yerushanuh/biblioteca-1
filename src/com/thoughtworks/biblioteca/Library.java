@@ -47,5 +47,11 @@ public class Library {
                 bookFound = true;
             }
         }
+        if(bookFound) {
+            printStream.println("Thank you for returning the book.");
+        }
+        else {
+            printStream.println("That is not a valid book to return.");
+        }
     }
 }
