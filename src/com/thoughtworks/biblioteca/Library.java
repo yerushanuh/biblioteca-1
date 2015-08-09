@@ -1,24 +1,15 @@
 package com.thoughtworks.biblioteca;
 
-import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.List;
 
-public class LibraryApp {
-    private final PrintStream printStream;
+public class Library {
+    private PrintStream printStream;
     private List<Book> bookList;
-    private final Menu menu;
 
-    public LibraryApp(PrintStream printStream, BufferedReader bufferedReader, List<Book> listOfBooks){
-        bookList = listOfBooks;
+    public Library(PrintStream printStream, List<Book> listOfBooks){
+        this.bookList = listOfBooks;
         this.printStream = printStream;
-        menu = new Menu(printStream, bufferedReader, this);
-    }
-
-    public void start() {
-        printStream.println("Welcome to the Biblioteca Library!");
-        menu.showOptions();
-        menu.respondToUserInput();
     }
 
     public void listBooks() {
@@ -46,5 +37,15 @@ public class LibraryApp {
          else {
              printStream.println("That book is not available.");
          }
+    }
+
+    public void returnBook(String bookTitle) {
+        boolean bookFound = false;
+        for (Book book: bookList) {
+            if (!bookFound && book.hasTitle(bookTitle) && !book.isAvailable()) {
+                book.returnBook();
+                bookFound = true;
+            }
+        }
     }
 }

@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,23 +16,36 @@ import static org.mockito.Mockito.when;
  */
 public class MenuCommandTest {
 
-    private MenuCommand menuCommands;
+    private MenuCommand menuCommand;
     private BufferedReader bufferedReader;
-    private LibraryApp libraryApp;
+    private Library library;
     private PrintStream printStream;
 
     @Before
     public void setUp() {
         bufferedReader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
-        libraryApp = mock(LibraryApp.class);
-        menuCommands = new MenuCommand(printStream, bufferedReader, libraryApp);
+        library = mock(Library.class);
+        menuCommand = new MenuCommand(printStream, bufferedReader, library);
+    }
+
+    @Test
+    public void shouldInstructLibraryToListBooksWhenListBooksChosen() {
+        menuCommand.listBooks();
+        verify(library).listBooks();
     }
 
     @Test
     public void shouldInstructLibraryToCheckOutBookWhenBookSpecified() throws IOException {
         when(bufferedReader.readLine()).thenReturn("Harry Potter");
-        menuCommands.checkOutBook();
-        verify(libraryApp).checkOut("Harry Potter");
+        menuCommand.checkOutBook();
+        verify(library).checkOut("Harry Potter");
+    }
+
+    @Test
+    public void shouldInstructLibraryToReturnBooksWhenBookReturnIsSelected() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("Harry Potter");
+        menuCommand.returnBook();
+        verify(library).returnBook("Harry Potter");
     }
 }

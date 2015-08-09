@@ -16,24 +16,17 @@ import static org.mockito.Mockito.*;
  */
 public class MenuTest {
 
-    //private static final Book DEFAULT_BOOK = mock(Book.class);
     private BufferedReader bufferedReader;
-    private LibraryApp libraryApp;
     private PrintStream printStream;
-    private MenuCommand menuCommands;
-    //private List<Book> bookList;
-    private Book harryPotter;
+    private MenuCommand menuCommand;
     private Menu menu;
 
     @Before
     public void setUp() throws Exception {
         bufferedReader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
-        libraryApp = mock(LibraryApp.class);
-        //bookList = new ArrayList<Book>();
-        menuCommands = mock(MenuCommand.class);
-        harryPotter = mock(Book.class);
-        menu = new Menu(printStream, bufferedReader, libraryApp);
+        menuCommand = mock(MenuCommand.class);
+        menu = new Menu(printStream, bufferedReader, menuCommand);
     }
 
     @Test
@@ -43,13 +36,6 @@ public class MenuTest {
         verify(printStream).println(contains("Enter [2]"));
         verify(printStream).println(contains("Enter [3]"));
         verify(printStream).println(contains("Quit [0]"));
-    }
-
-    @Test
-    public void shouldListBooksWhenMenuOptionOneIsSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1", "0");
-        menu.respondToUserInput();
-        verify(libraryApp).listBooks();
     }
 
     @Test
@@ -73,11 +59,21 @@ public class MenuTest {
         verify(bufferedReader).readLine();
     }
 
-    @Ignore
-    public void shouldPromptUserForBookTitleWhenOption2IsSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("2", "0", "0");
-        menu.respondToUserInput();
-        verify(menuCommands).checkOutBook();
+    @Test
+    public void shouldListBooksWhenOption1IsSelected() {
+        menu.applySelectedMenuOption(1);
+        verify(menuCommand).listBooks();
     }
 
+    @Test
+    public void shouldCheckOutBooksWhenOption2IsSelected() {
+        menu.applySelectedMenuOption(2);
+        verify(menuCommand).checkOutBook();
+    }
+
+    @Test
+    public void shouldReturnBooksWhenOption3IsSelected() {
+        menu.applySelectedMenuOption(3);
+        verify(menuCommand).returnBook();
+    }
 }

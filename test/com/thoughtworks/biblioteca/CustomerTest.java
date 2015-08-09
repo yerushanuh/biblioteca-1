@@ -13,9 +13,9 @@ public class CustomerTest {
     @Test
     public void bookGetsCheckedOutWhenCustomerChecksOutBook() {
         Customer customer = new Customer();
-        LibraryApp libraryApp = mock(LibraryApp.class);
+        Library library = mock(Library.class);
         Book harryPotter = mock(Book.class);
-        customer.checkOutBook(libraryApp, harryPotter);
+        customer.checkOutBook(library, harryPotter);
         verify(harryPotter).checkOut();
     }
 

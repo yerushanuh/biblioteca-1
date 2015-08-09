@@ -1,22 +1,20 @@
 package com.thoughtworks.biblioteca;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
 
 public class Menu {
 
     private PrintStream printStream;
     private BufferedReader bufferedReader;
-    private LibraryApp libraryApp;
     private Boolean readyToReadInput;
-    private MenuCommand menuCommands;
+    private MenuCommand menuCommand;
 
-    public Menu(PrintStream printStream, BufferedReader bufferedReader, LibraryApp libraryApp) {
+    public Menu(PrintStream printStream, BufferedReader bufferedReader, MenuCommand menuCommand) {
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
-        this.libraryApp = libraryApp;
         this.readyToReadInput = true;
+        this.menuCommand = menuCommand;
     }
 
     public void showOptions() {
@@ -28,22 +26,24 @@ public class Menu {
     }
 
     public void respondToUserInput() {
-
         while (readyToReadInput) {
             applySelectedMenuOption(readAndValidateInputMenuOption());
         }
     }
 
-    private void applySelectedMenuOption(Integer input) {
+    public void applySelectedMenuOption(Integer input) {
         switch (input) {
             case 0:
                 readyToReadInput = false;
                 break;
             case 1:
-                libraryApp.listBooks();
+                menuCommand.listBooks();
                 break;
             case 2:
-                menuCommands.checkOutBook();
+                menuCommand.checkOutBook();
+                break;
+            case 3:
+                menuCommand.returnBook();
                 break;
             default:
                 printStream.println("Select a valid option!");

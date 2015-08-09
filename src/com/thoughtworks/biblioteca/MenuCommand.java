@@ -11,22 +11,37 @@ public class MenuCommand {
 
     private PrintStream printStream;
     private BufferedReader bufferedReader;
-    private LibraryApp libraryApp;
+    private Library library;
 
-    public MenuCommand(PrintStream printStream, BufferedReader bufferedReader, LibraryApp libraryApp) {
+    public MenuCommand(PrintStream printStream, BufferedReader bufferedReader, Library library) {
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
-        this.libraryApp = libraryApp;
+        this.library = library;
     }
 
     public void checkOutBook() {
         printStream.println("Enter the title of the book you would like to check out.");
-        String bookTitle = "";
+        String bookTitle = getUserInput();
+        library.checkOut(bookTitle);
+    }
+
+    public void returnBook() {
+        printStream.println("Enter the title of the book you would like to return.");
+        String bookTitle = getUserInput();
+        library.returnBook(bookTitle);
+    }
+
+    private String getUserInput() {
+        String string = "";
         try {
-            bookTitle = bufferedReader.readLine();
+            string = bufferedReader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        libraryApp.checkOut(bookTitle);
+        return string;
+    }
+
+    public void listBooks() {
+        library.listBooks();
     }
 }

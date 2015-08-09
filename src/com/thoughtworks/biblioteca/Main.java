@@ -17,7 +17,12 @@ public class Main {
         Book sandAndFog = new Book("House of Sand and Fog", "Andre Dubus", 2003);
         listOfBooks.add(sandAndFog);
 
-        LibraryApp libraryApp = new LibraryApp(new PrintStream(System.out), new BufferedReader(new InputStreamReader(System.in)), listOfBooks);
-        libraryApp.start();
+        PrintStream printStream = new PrintStream(System.out);
+
+        Library library = new Library(printStream, listOfBooks);
+
+        Biblioteca biblioteca = new Biblioteca(printStream, new BufferedReader(new InputStreamReader(System.in)), library);
+        biblioteca.start();
+
     }
 }
