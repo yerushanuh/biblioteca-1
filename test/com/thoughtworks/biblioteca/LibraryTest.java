@@ -22,15 +22,18 @@ public class LibraryTest {
     private List<Book> bookList;
     private Book harryPotter;
     private BufferedReader bufferedReader;
+    private Movie defaultMovie;
+    private List<Movie> movieList;
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
         bookList = new ArrayList<>();
+        movieList = new ArrayList<>();
         bufferedReader = mock(BufferedReader.class);
-        library = new Library(bookList);
+        library = new Library(bookList, movieList);
         harryPotter = mock(Book.class);
-
+        defaultMovie = mock(Movie.class);
     }
 
     @Test
@@ -42,9 +45,25 @@ public class LibraryTest {
     }
 
     @Test
+    public void shouldListExistingMoviesInLibrary() {
+        movieList.add(defaultMovie);
+        when(defaultMovie.getDetailsAsString()).thenReturn("some string");
+        when(defaultMovie.isAvailable()).thenReturn(true);
+        assertEquals(library.listMovies(), ("some string\n"));
+    }
+
+    @Test
     public void shouldListNothingWhenNoBooksInLibrary(){
         library.listBooks();
         assertEquals(library.listBooks(), (""));
+    }
+
+    @Test
+    public void shouldNotReturnMovieDetailsWhenNotAvailable() {
+        movieList.add(defaultMovie);
+        when(defaultMovie.isAvailable()).thenReturn(false);
+        library.listMovies();
+        verify(defaultMovie, never()).getDetailsAsString();
     }
 
     @Test

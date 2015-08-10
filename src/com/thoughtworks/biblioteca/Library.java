@@ -4,9 +4,11 @@ import java.util.List;
 
 public class Library {
     private List<Book> bookList;
+    private List<Movie> movieList;
 
-    public Library(List<Book> listOfBooks) {
+    public Library(List<Book> listOfBooks, List<Movie> listOfMovies) {
         this.bookList = listOfBooks;
+        this.movieList = listOfMovies;
     }
 
     public String listBooks() {
@@ -42,5 +44,15 @@ public class Library {
             }
         }
         return "That is not a valid book to return.";
+    }
+
+    public String listMovies() {
+        String output = "";
+        for (Movie movie : movieList) {
+            if (movie.isAvailable()) {
+                output += movie.getDetailsAsString() + "\n";
+            }
+        }
+        return output;
     }
 }
