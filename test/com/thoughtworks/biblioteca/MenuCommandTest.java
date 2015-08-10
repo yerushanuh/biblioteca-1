@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -66,4 +67,17 @@ public class MenuCommandTest {
         verify(library).returnBook("some title");
     }
 
+    @Test
+    public void shouldListMoviesWhenOption4IsSelected() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("4", "0");
+        menuCommand.processUserCommand();
+        verify(library).listMovies();
+    }
+
+    @Test
+    public void shouldCheckoutMoviesWhenOption5IsSelected() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("5", "0");
+        menuCommand.processUserCommand();
+        verify(library).checkOutMovie(anyString());
+    }
 }

@@ -84,6 +84,15 @@ public class LibraryTest {
     }
 
     @Test
+    public void shouldCheckOutMovie() {
+        movieList.add(defaultMovie);
+        when(defaultMovie.isAvailable()).thenReturn(true);
+        when(defaultMovie.hasTitle("Title 1")).thenReturn(true);
+        library.checkOutMovie("Title 1");
+        verify(defaultMovie).checkOut();
+    }
+
+    @Test
     public void shouldPrintSuccessMessageWhenBookIsSuccessfullyCheckedOut() {
         bookList.add(harryPotter);
         when(harryPotter.isAvailable()).thenReturn(true);

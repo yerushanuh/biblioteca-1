@@ -30,9 +30,11 @@ public class MenuTest {
     @Test
     public void shouldShowMenuOptionsWhenMenuIsDisplayed() {
         menu.showOptions();
-        verify(printStream).println(contains("Enter [1]"));
-        verify(printStream).println(contains("Enter [2]"));
-        verify(printStream).println(contains("Enter [3]"));
+        verify(printStream).println(contains("Enter [1] to show all books"));
+        verify(printStream).println(contains("Enter [2] to checkout books"));
+        verify(printStream).println(contains("Enter [3] to return books"));
+        verify(printStream).println(contains("Enter [4] to show all movies"));
+        verify(printStream).println(contains("Enter [5] to checkout movies"));
         verify(printStream).println(contains("Quit [0]"));
     }
 

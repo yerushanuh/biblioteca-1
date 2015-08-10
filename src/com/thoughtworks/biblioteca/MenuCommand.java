@@ -65,10 +65,25 @@ public class MenuCommand {
             case 3:
                 returnBook();
                 break;
+            case 4:
+                listMovies();
+                break;
+            case 5:
+                checkOutMovie();
+                break;
             default:
                 printStream.println("Select a valid option!");
         }
         return true;
+    }
+
+    private void checkOutMovie() {
+        library.checkOutMovie("title");
+    }
+
+    private void listMovies() {
+        String output = library.listMovies();
+        printStream.println(output);
     }
 
     private Integer readAndValidateInputMenuOption() {

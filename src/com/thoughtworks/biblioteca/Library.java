@@ -55,4 +55,12 @@ public class Library {
         }
         return output;
     }
+
+    public void checkOutMovie(String title) {
+        for (Movie movie : movieList) {
+            if (movie.isAvailable() && movie.hasTitle("Title 1")) {
+                movie.checkOut();
+            }
+        }
+    }
 }

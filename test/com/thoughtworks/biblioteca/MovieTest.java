@@ -28,4 +28,9 @@ public class MovieTest {
         assertFalse(movie.isAvailable());
     }
 
+    @Test
+    public void shouldReturnTrueWhenBookHasTitle() {
+        assertTrue(movie.hasTitle("Title"));
+    }
+
 }

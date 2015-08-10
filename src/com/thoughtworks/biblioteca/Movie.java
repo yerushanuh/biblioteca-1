@@ -30,4 +30,8 @@ public class Movie {
     public void checkOut() {
         isAvailable = false;
     }
+
+    public boolean hasTitle(String chosenTitle) {
+        return chosenTitle.equals(title);
+    }
 }

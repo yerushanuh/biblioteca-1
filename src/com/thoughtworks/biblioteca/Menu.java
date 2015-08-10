@@ -22,7 +22,9 @@ public class Menu {
         printStream.println("Enter [1] to show all books");
         printStream.println("Enter [2] to checkout books");
         printStream.println("Enter [3] to return books");
-        printStream.println("Quit [0] to close the library");
+        printStream.println("Enter [4] to show all movies");
+        printStream.println("Enter [5] to checkout movies");
+        printStream.println("Quit [0]");
     }
 
     public void runMenuOptions() {
