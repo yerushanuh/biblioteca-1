@@ -19,21 +19,25 @@ public class MenuCommand {
         this.library = library;
     }
 
-    public void checkOutBook() {
+    public Boolean processUserCommand() {
+        return applySelectedMenuOption(readAndValidateInputMenuOption());
+    }
+
+    private void checkOutBook() {
         printStream.println("Enter the title of the book you would like to check out.");
         String bookTitle = getUserInput();
         String output = library.checkOut(bookTitle);
         printStream.println(output);
     }
 
-    public void returnBook() {
+    private void returnBook() {
         printStream.println("Enter the title of the book you would like to return.");
         String bookTitle = getUserInput();
         String output = library.returnBook(bookTitle);
         printStream.println(output);
     }
 
-    public void listBooks() {
+    private void listBooks() {
         String output = library.listBooks();
         printStream.println(output);
     }
@@ -46,5 +50,34 @@ public class MenuCommand {
             e.printStackTrace();
         }
         return string;
+    }
+
+    private boolean applySelectedMenuOption(Integer input) {
+        switch (input) {
+            case 0:
+                return false;
+            case 1:
+                listBooks();
+                break;
+            case 2:
+                checkOutBook();
+                break;
+            case 3:
+                returnBook();
+                break;
+            default:
+                printStream.println("Select a valid option!");
+        }
+        return true;
+    }
+
+    private Integer readAndValidateInputMenuOption() {
+        Integer input = -1;
+        try {
+            printStream.println("Menu selection: ");
+            input = Integer.parseInt(bufferedReader.readLine());
+        } catch (Exception e) {}
+
+        return input;
     }
 }

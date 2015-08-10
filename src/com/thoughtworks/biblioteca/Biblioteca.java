@@ -23,6 +23,6 @@ public class Biblioteca {
     public void start() {
         printStream.println("Welcome to the Biblioteca Library!");
         menu.showOptions();
-        menu.respondToUserInput();
+        menu.runMenuOptions();
     }
 }

@@ -1,11 +1,9 @@
 package com.thoughtworks.biblioteca;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.mockito.Matchers.contains;
@@ -39,41 +37,16 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldReportErrorWhenInvalidIntegerSelected() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("-1", "1", "0");
-        menu.respondToUserInput();
-        verify(printStream).println("Select a valid option!");
+    public void shouldCallForUserInputWhenUserHasNotQuit() {
+        when(menuCommand.processUserCommand()).thenReturn(true, false);
+        menu.runMenuOptions();
+        verify(menuCommand, times(2)).processUserCommand();
     }
 
     @Test
-    public void shouldReportErrorMessageWhenInputIsNotInteger() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("not an integer", "1", "0");
-        menu.respondToUserInput();
-        verify(printStream).println(contains("Select a valid option!"));
-    }
-
-    @Test
-    public void shouldBePromptedOnceWhenQuitIsFirstChoice() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("0", "1");
-        menu.respondToUserInput();
-        verify(bufferedReader).readLine();
-    }
-
-    @Test
-    public void shouldListBooksWhenOption1IsSelected() {
-        menu.applySelectedMenuOption(1);
-        verify(menuCommand).listBooks();
-    }
-
-    @Test
-    public void shouldCheckOutBooksWhenOption2IsSelected() {
-        menu.applySelectedMenuOption(2);
-        verify(menuCommand).checkOutBook();
-    }
-
-    @Test
-    public void shouldReturnBooksWhenOption3IsSelected() {
-        menu.applySelectedMenuOption(3);
-        verify(menuCommand).returnBook();
+    public void shouldCallForUserInputOnceWhenUserEntersQuitFirst() {
+        when(menuCommand.processUserCommand()).thenReturn(false);
+        menu.runMenuOptions();
+        verify(menuCommand).processUserCommand();
     }
 }
